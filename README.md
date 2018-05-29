@@ -19,7 +19,4 @@ docker build -t local/fbx2gltf-docker .
 3.3 ./fbx20181_1_fbxsdk_linux fbxsdk
 3.4 docker run -it --rm -v <absolute_path_to_fbxsdk_folder>:/root/fbxsdk local/fbx2gltf-docker
 3.5 <currently hangs on draco compilation>
-  
-## Alternatively just pull from Docker Hub
-
-docker run -it --rm -v <absolute_path_to_fbxsdk_folder>:/root/fbxsdk dixitalgorismi/fbx2gltf-docker
+ 
