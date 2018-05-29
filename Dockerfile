@@ -14,12 +14,16 @@ RUN yum install -y gcc-c++ &&\
     wget https://cmake.org/files/v3.10/cmake-3.10.0.tar.gz &&\
     tar -xvzf cmake-3.10.0.tar.gz
 
+ADD make-fbx2gltf.sh /root/make-fbx2gltf.sh
+RUN chmod +x /root/make-fbx2gltf.sh
+
 # Install gcc 4.8
 RUN wget http://people.centos.org/tru/devtools-2/devtools-2.repo -O /etc/yum.repos.d/devtools-2.repo &&\
-    yum install devtoolset-2-gcc devtoolset-2-binutils &&\
-    yum install devtoolset-2-gcc-c++
-
-RUN cd cmake-3.10.0 &&\
+    yum install -y devtoolset-2-gcc devtoolset-2-binutils devtoolset-2-gcc-c++ &&\
+    /opt/rh/devtoolset-2/root/usr/bin/gcc --version &&\
+    scl enable devtoolset-2 bash &&\
+    source /opt/rh/devtoolset-2/enable &&\   
+    cd /root/cmake-3.10.0 &&\
     ./bootstrap &&\
     make &&\
     make install &&\
@@ -29,10 +33,12 @@ RUN cd cmake-3.10.0 &&\
 
 # Build FBX2glTF
 RUN cd /root &&\
-    git clone https://github.com/facebookincubator/FBX2glTF.git &&\
-    cd FBX2glTF &&\
-    cmake -H. -Bbuild -DCMAKE_BUILD_TYPE=Release &&\
-    make -Cbuild -j4 install
+    git clone https://github.com/facebookincubator/FBX2glTF.git
+
+WORKDIR /root
+
+#Build FBX2glTF
+#ENTRYPOINT ["/bin/bash", "/root/make-fbx2gltf.sh"]
 
 #WORKDIR root/FBX2glTF
 
