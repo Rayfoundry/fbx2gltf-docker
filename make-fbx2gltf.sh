@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cp -R /root/fbxsdk/* /usr
+
 cd /root
 git clone https://github.com/facebookincubator/FBX2glTF.git
 cd FBX2glTF
