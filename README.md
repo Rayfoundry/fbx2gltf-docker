@@ -12,7 +12,7 @@ docker build -t local/fbx2gltf-docker .
 
 2.1 Download http://download.autodesk.com/us/fbx/2018/2018.1.1/fbx20181_1_fbxsdk_linux.tar.gz
 
-2.2 
+
 
 ## 3. Run docker image to build binary
 
