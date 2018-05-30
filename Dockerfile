@@ -22,9 +22,6 @@ RUN yum install -y \
     yum install -y devtoolset-7-gcc* &&\
     source /opt/rh/devtoolset-7/enable 
 
-ADD make-fbx2gltf.sh /root/make-fbx2gltf.sh
-RUN chmod +x /root/make-fbx2gltf.sh
-
 RUN source /opt/rh/devtoolset-7/enable &&\
     cd /root/cmake-3.10.0 &&\
     gcc --version &&\
@@ -43,5 +40,9 @@ RUN cd /root &&\
 
 WORKDIR /root/FBX2glTF
 
+ADD make-fbx2gltf.sh /root/make-fbx2gltf.sh
+RUN chmod +x /root/make-fbx2gltf.sh
+
 #Build FBX2glTF
 ENTRYPOINT ["/bin/bash", "/root/make-fbx2gltf.sh"]
+
