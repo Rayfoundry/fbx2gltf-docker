@@ -1,4 +1,4 @@
-FROM centos:7
+FROM centos:6
 
 # Update yum repos
 RUN yum update -y
