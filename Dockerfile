@@ -1,4 +1,4 @@
-FROM amazonlinux
+FROM centos:7
 
 # Update yum repos
 RUN yum update -y
@@ -9,24 +9,25 @@ RUN yum install -y\
     wget
 
 # Install and build cmake 3
-RUN yum install -y gcc-c++ &&\
+RUN yum install -y gcc-c++ \
+    make &&\
     cd /root &&\
     wget https://cmake.org/files/v3.10/cmake-3.10.0.tar.gz &&\
     tar -xvzf cmake-3.10.0.tar.gz
 
+#add newer gcc
+RUN yum install -y \
+    scl-utils \
+    centos-release-scl &&\
+    yum install -y devtoolset-7-gcc* &&\
+    source /opt/rh/devtoolset-7/enable 
+
 ADD make-fbx2gltf.sh /root/make-fbx2gltf.sh
 RUN chmod +x /root/make-fbx2gltf.sh
 
-# Install gcc 4.8
-#RUN wget http://people.centos.org/tru/devtools-2/devtools-2.repo -O /etc/yum.repos.d/devtools-2.repo &&\
-#    yum install -y devtoolset-2-gcc devtoolset-2-binutils &&\
-#    yum install -y devtoolset-2-gcc-c++ &&\
-#    /opt/rh/devtoolset-2/root/usr/bin/gcc --version &&\
-#    CC=/opt/rh/devtoolset-2/root/usr/bin/gcc &&\
-#    export CC &&\
-#    CXX=/opt/rh/devtoolset-2/root/usr/bin/g++ &&\
-#    export GXX &&\
-RUN cd /root/cmake-3.10.0 &&\
+RUN source /opt/rh/devtoolset-7/enable &&\
+    cd /root/cmake-3.10.0 &&\
+    gcc --version &&\
     ./bootstrap &&\
     make &&\
     make install &&\
@@ -44,5 +45,3 @@ WORKDIR /root/FBX2glTF
 
 #Build FBX2glTF
 ENTRYPOINT ["/bin/bash", "/root/make-fbx2gltf.sh"]
-
-CMD ls
