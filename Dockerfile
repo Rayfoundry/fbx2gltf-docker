@@ -1,4 +1,4 @@
-FROM centos:6
+FROM amazonlinux:2
 
 # Update yum repos
 RUN yum update -y
@@ -6,37 +6,27 @@ RUN yum update -y
 # Install some yum packages
 RUN yum install -y\
     git \
+    tar \
     wget
 
-# Install and build cmake 3
-RUN yum install -y gcc-c++ \
-    make &&\
-    cd /root &&\
-    wget https://cmake.org/files/v3.10/cmake-3.10.0.tar.gz &&\
-    tar -xvzf cmake-3.10.0.tar.gz
-
-#add newer gcc
+# Install updated toolchain
 RUN yum install -y \
-    scl-utils \
-    centos-release-scl &&\
-    yum install -y devtoolset-7-gcc* &&\
-    source /opt/rh/devtoolset-7/enable 
+    gcc \
+    gcc-c++ \
+    make
 
-RUN source /opt/rh/devtoolset-7/enable &&\
-    cd /root/cmake-3.10.0 &&\
+# Install and build cmake 3
+RUN cd /root &&\
+    wget https://cmake.org/files/v3.11/cmake-3.11.2.tar.gz &&\
+    tar -xvzf cmake-3.11.2.tar.gz &&\
+    cd cmake-3.11.2 &&\
     gcc --version &&\
     ./bootstrap &&\
     make &&\
     make install &&\
     cd .. &&\
-    rm -Rf cmake-3.10.0 &&\
-    rm -f cmake-3.10.0.tar.gz
-
-# Build FBX2glTF
-RUN cd /root &&\
-    git clone https://github.com/facebookincubator/FBX2glTF.git
-
-WORKDIR /root/FBX2glTF
+    rm -Rf cmake-3.11.2 &&\
+    rm -f cmake-3.11.2.tar.gz
 
 ADD make-fbx2gltf.sh /root/make-fbx2gltf.sh
 RUN chmod +x /root/make-fbx2gltf.sh
