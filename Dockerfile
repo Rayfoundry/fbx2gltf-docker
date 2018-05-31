@@ -28,12 +28,6 @@ RUN cd /root &&\
     rm -Rf cmake-3.11.2 &&\
     rm -f cmake-3.11.2.tar.gz
 
-# Build FBX2glTF
-RUN cd /root &&\
-    git clone https://github.com/facebookincubator/FBX2glTF.git
-
-WORKDIR /root/FBX2glTF
-
 ADD make-fbx2gltf.sh /root/make-fbx2gltf.sh
 RUN chmod +x /root/make-fbx2gltf.sh
 
