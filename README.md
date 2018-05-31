@@ -22,7 +22,7 @@ docker build -t local/fbx2gltf-docker .
 
 3.3 ./fbx20181_1_fbxsdk_linux fbxsdk
 
-3.4 docker run -it --rm -v <absolute_path_to_fbxsdk_folder>:/root/fbxsdk -v $PWD/result:/root/result fbx2gltf
+3.4 docker run -it --rm -v <absolute_path_to_fbxsdk_folder>:/root/fbxsdk -v $PWD/result:/root/result local/fbx2gltf-docker
 
 3.5 retrieve binary FBX2glTF from result folder
  
