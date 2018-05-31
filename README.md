@@ -1,7 +1,7 @@
 # fbx2gltf-docker
 
 Builds the binary for FBX2glTF from the latest source for several Linux distros.
-Currently supported are: CentOS6, CentOS7, Amazon Linux 1 & 2.
+Currently supported are: CentOS6, CentOS7, Amazon Linux 1 & 2 & specialized CentOS7 from nvidia/cudagl.
 
 Required: Docker
 
