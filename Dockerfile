@@ -9,21 +9,12 @@ RUN yum install -y\
     tar \
     wget
 
-# Install and build cmake 3
-RUN yum install -y gcc \
-    make &&\
-    cd /root &&\
-    wget https://cmake.org/files/v3.10/cmake-3.11.2.tar.gz &&\
-    tar -xvzf cmake-3.11.2.tar.gz
-
-RUN cd /root/cmake-3.11.2 &&\
-    gcc --version &&\
-    ./bootstrap &&\
-    make &&\
-    make install &&\
-    cd .. &&\
-    rm -Rf cmake-3.11.2 &&\
-    rm -f cmake-3.11.2.tar.gz
+# Install updated toolchain
+RUN wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm -P /tmp &&\
+    yum install -y /tmp/epel-release-latest-7.noarch.rpm &&\     
+    yum install -y \
+    gcc \
+    cmake3 
 
 # Build FBX2glTF
 RUN cd /root &&\
