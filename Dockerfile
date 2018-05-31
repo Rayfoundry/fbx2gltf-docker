@@ -1,4 +1,4 @@
-FROM amazonlinux:2
+FROM amazonlinux:1
 
 # Update yum repos
 RUN yum update -y
@@ -11,7 +11,7 @@ RUN yum install -y\
 
 # Install updated toolchain
 RUN yum install -y \
-    gcc \
+    gcc64 \
     gcc-c++ \
     make
 
@@ -29,14 +29,14 @@ RUN cd /root &&\
     rm -f cmake-3.11.2.tar.gz
 
 # Build FBX2glTF
-RUN cd /root &&\
-    git clone https://github.com/facebookincubator/FBX2glTF.git
+#RUN cd /root &&\
+#    git clone https://github.com/facebookincubator/FBX2glTF.git
 
-WORKDIR /root/FBX2glTF
+#WORKDIR /root/FBX2glTF
 
-ADD make-fbx2gltf.sh /root/make-fbx2gltf.sh
-RUN chmod +x /root/make-fbx2gltf.sh
+#ADD make-fbx2gltf.sh /root/make-fbx2gltf.sh
+#RUN chmod +x /root/make-fbx2gltf.sh
 
 #Build FBX2glTF
-ENTRYPOINT ["/bin/bash", "/root/make-fbx2gltf.sh"]
+#ENTRYPOINT ["/bin/bash", "/root/make-fbx2gltf.sh"]
 
