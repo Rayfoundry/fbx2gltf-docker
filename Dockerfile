@@ -1,4 +1,4 @@
-FROM centos:7
+FROM nvidia/cudagl:9.0-runtime-centos7
 
 # Update yum repos
 RUN yum update -y
@@ -12,8 +12,8 @@ RUN yum install -y\
 RUN yum install -y gcc-c++ \
     make &&\
     cd /root &&\
-    wget https://cmake.org/files/v3.10/cmake-3.10.0.tar.gz &&\
-    tar -xvzf cmake-3.10.0.tar.gz
+    wget https://cmake.org/files/v3.11/cmake-3.11.2.tar.gz &&\
+    tar -xvzf cmake-3.11.2.tar.gz
 
 #add newer gcc
 RUN yum install -y \
@@ -23,14 +23,14 @@ RUN yum install -y \
     source /opt/rh/devtoolset-7/enable 
 
 RUN source /opt/rh/devtoolset-7/enable &&\
-    cd /root/cmake-3.10.0 &&\
+    cd /root/cmake-3.11.2 &&\
     gcc --version &&\
     ./bootstrap &&\
     make &&\
     make install &&\
     cd .. &&\
-    rm -Rf cmake-3.10.0 &&\
-    rm -f cmake-3.10.0.tar.gz
+    rm -Rf cmake-3.11.2 &&\
+    rm -f cmake-3.11.2.tar.gz
 
 ADD make-fbx2gltf.sh /root/make-fbx2gltf.sh
 RUN chmod +x /root/make-fbx2gltf.sh
