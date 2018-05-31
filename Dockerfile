@@ -14,7 +14,21 @@ RUN wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm 
     yum install -y /tmp/epel-release-latest-7.noarch.rpm &&\     
     yum install -y \
     gcc \
-    cmake3 
+    gcc-c++ \
+    make
+
+# Install and build cmake 3
+RUN cd /root &&\
+    wget https://cmake.org/files/v3.10/cmake-3.10.0.tar.gz &&\
+    tar -xvzf cmake-3.10.0.tar.gz &&\
+    cd cmake-3.10.0 &&\
+    gcc --version &&\
+    ./bootstrap &&\
+    make &&\
+    make install &&\
+    cd .. &&\
+    rm -Rf cmake-3.10.0 &&\
+    rm -f cmake-3.10.0.tar.gz
 
 # Build FBX2glTF
 RUN cd /root &&\
