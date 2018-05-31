@@ -1,6 +1,10 @@
 # fbx2gltf-docker
 
-Required: Docker (probably only support the Linux version)
+Builds the binary for FBX2glTF from the latest source for several Linux distros.
+Currently supported are: CentOS6, CentOS7, Amazon Linux 1 & 2 & specialized CentOS7 from nvidia/cudagl.
+
+Required: Docker
+
 
 ## 1. How to build docker container
 
@@ -11,7 +15,6 @@ docker build -t local/fbx2gltf-docker .
 ## 2. Get FBX SDK 2018.1.1
 
 2.1 Download http://download.autodesk.com/us/fbx/2018/2018.1.1/fbx20181_1_fbxsdk_linux.tar.gz
-
 
 
 ## 3. Run docker image to build binary
